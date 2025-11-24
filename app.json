@@ -4,28 +4,29 @@
     "slug": "ChakraDharSwamiApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ChakradharLogos.png",
+    "icon": "./assets/icons/app_icon_1024.png",
     "userInterfaceStyle": "false",
     "newArchEnabled": true,
     "jsEngine": "hermes",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash/splash_2048.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.smartsoftwareservices.chakradharswamiapp"
+      "bundleIdentifier": "com.smartsoftwareservices.chakradharswamiapp",
+      "icon": "./assets/icons/ios_appstore_1024.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/adaptive_foreground_512.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.smartsoftwareservices.chakradharswamiapp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons/app_icon_1024.png"
     },
     "plugins": [
       "expo-font",
@@ -36,6 +37,7 @@
       "eas": {
         "projectId": "d1c83017-8866-4902-af70-a6c30de68093"
       }
-    }
+    },
+    "owner": "ankit8210"
   }
 }

@@ -114,7 +114,7 @@ const CustomHeader = ({ title }) => {
 function AuthStack({ setIsLoggedIn, setIsAdmin }) {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="SplashScreen"
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
@@ -194,7 +194,7 @@ const CustomDrawerContent = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.drawerItem}
-        onPress={() => navigation.navigate("पंचकृष्ण")}
+        onPress={() => navigation.navigate("")}
       >
         <Image
           source={require("./assets/krushna07.jpg")} // Replace with your logo
