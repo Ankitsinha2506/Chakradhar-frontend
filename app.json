@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "श्री चक्रधर स्वामी",
+    "slug": "ChakraDharSwamiApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/ChakradharLogos.png",
+    "userInterfaceStyle": "false",
+    "newArchEnabled": true,
+    "jsEngine": "hermes",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.smartsoftwareservices.chakradharswamiapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.smartsoftwareservices.chakradharswamiapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-maps",
+      "expo-web-browser"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d1c83017-8866-4902-af70-a6c30de68093"
+      }
+    }
+  }
+}

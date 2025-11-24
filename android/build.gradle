@@ -1,0 +1,37 @@
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath("com.android.tools.build:gradle:8.3.2")
+    classpath("com.facebook.react:react-native-gradle-plugin")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20")
+  }
+}
+
+allprojects {
+  repositories {
+    google()
+    mavenCentral()
+    maven { url "https://www.jitpack.io" }
+  }
+}
+
+apply plugin: "expo-root-project"
+apply plugin: "com.facebook.react.rootproject"
+
+subprojects {
+  if (project.name == "react-native-video" || project.name == "expo-random") {
+    project.plugins.whenPluginAdded {
+      if (!project.hasProperty("compileSdk")) {
+        project.extensions.extraProperties.set("compileSdk", 34)
+      }
+    }
+
+    tasks.matching { it.name == "androidSourcesJar" }.configureEach {
+      it.archiveClassifier.set("sources")
+    }
+  }
+}

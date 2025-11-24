@@ -1,0 +1,148 @@
+import React from 'react';
+import { View, Text, ScrollView, StyleSheet, ImageBackground, StatusBar, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons'; // Using Ionicons for a stylish back icon
+
+const SwamiInfoPage = () => {
+  const navigation = useNavigation();
+
+  return (
+    <ImageBackground 
+      source={require('../assets/chakradhar2.jpg')} // Replace with your divine background image
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <StatusBar barStyle="light-content" />
+      
+      {/* Back Button */}
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={28} color="#FFD700" />
+      </TouchableOpacity>
+
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>श्री चक्रधर स्वामी: आध्यात्मिक जीवनचरित्र</Text>
+
+        <Text style={styles.heading}>१. जन्म आणि बालपण</Text>
+        <Text style={styles.text}>
+          श्री चक्रधर स्वामी यांचा जन्म गुजरातमध्ये झाला. त्यांच्या बालपणातील अनेक चमत्कारिक घटना सांगितल्या जातात. लहानपणापासूनच त्यांच्यात आध्यात्मिक प्रवृत्ती दिसू लागली होती.
+        </Text>
+
+        <Text style={styles.heading}>२. संन्यास आणि भ्रमंती</Text>
+        <Text style={styles.text}>
+          तरुणावस्थेत त्यांनी संन्यास स्वीकारला आणि भारतभर भ्रमंती करून लोकांना आध्यात्मिक शिकवण दिली. त्यांनी अनेक ठिकाणी जाऊन लोकांना सत्य, प्रेम आणि समतेचा संदेश दिला.
+        </Text>
+
+        <Text style={styles.heading}>३. महानुभाव पंथाची स्थापना</Text>
+        <Text style={styles.text}>
+          श्री चक्रधर स्वामींनी महानुभाव पंथाची स्थापना केली. हा पंथ कृष्णभक्तीवर आधारित आहे आणि जातिभेद, लिंगभेद नाकारतो. त्यांच्या शिकवणीत साधे आणि नैतिक जीवन, सामाजिक समता, आणि भक्ती यावर भर होता.
+        </Text>
+
+        <Text style={styles.heading}>श्री चक्रधर स्वामींचे तत्त्वज्ञान</Text>
+        <Text style={styles.subHeading}>१. एकेश्वरवाद</Text>
+        <Text style={styles.text}>
+          श्री चक्रधर स्वामींच्या मते, कृष्ण हेच एकमेव देव आहेत. त्यांनी इतर देवतांच्या उपासनेला विरोध केला.
+        </Text>
+
+        <Text style={styles.subHeading}>२. सामाजिक समता</Text>
+        <Text style={styles.text}>
+          त्यांनी जातिभेद आणि लिंगभेद नाकारला आणि सर्व मानवांना समान मानले. त्यांच्या पंथात सर्व जाती आणि वर्गांचे लोक सहभागी होऊ शकतात.
+        </Text>
+
+        <Text style={styles.subHeading}>३. साधे आणि नैतिक जीवन</Text>
+        <Text style={styles.text}>
+          त्यांनी साधे आणि नैतिक जीवन जगण्यावर भर दिला. भौतिक सुखांपेक्षा आध्यात्मिक सुखाला महत्त्व दिले.
+        </Text>
+
+        <Text style={styles.subHeading}>४. भक्तीमार्ग</Text>
+        <Text style={styles.text}>
+          त्यांच्या मते, भक्ती हा ईश्वरापर्यंत पोहोचण्याचा सर्वात सोपा मार्ग आहे.
+        </Text>
+
+        <Text style={styles.heading}>श्री चक्रधर स्वामींचे चमत्कार</Text>
+        <Text style={styles.text}>
+          श्री चक्रधर स्वामींनी अनेक चमत्कार केले, ज्यामुळे लोक त्यांच्यावर श्रद्धा ठेवू लागले. काही प्रमुख चमत्कार खालीलप्रमाणे आहेत:
+        </Text>
+        <Text style={styles.text}>- रामेश्वर येथील चमत्कार: एका गरीब भक्ताच्या घरात पाण्याचा कलश निर्माण केला.</Text>
+        <Text style={styles.text}>- दुष्काळात पाऊस आणणे: एका गावात दुष्काळ पडल्यावर त्यांनी पाऊस आणला.</Text>
+        <Text style={styles.text}>- रोग बरे करणे: अनेक भक्तांचे रोग बरे केले.</Text>
+
+        <Text style={styles.heading}>श्री चक्रधर स्वामींचे उपदेश</Text>
+        <Text style={styles.text}>- सत्याचा मार्ग: सत्य बोलणे आणि सत्याचे आचरण करणे.</Text>
+        <Text style={styles.text}>- प्रेम आणि करुणा: सर्व प्राणिमात्रांवर प्रेम आणि करुणा बाळगणे.</Text>
+        <Text style={styles.text}>- समता: सर्व मानवांना समान मानणे.</Text>
+        <Text style={styles.text}>- भक्ती: ईश्वरभक्ती हा जीवनाचा मुख्य उद्देश.</Text>
+
+        <Text style={styles.heading}>श्री चक्रधर स्वामींचे साहित्य</Text>
+        <Text style={styles.text}>
+          श्री चक्रधर स्वामींच्या शिकवणी आणि जीवनाचा तपशील लीलाचरित्र या ग्रंथात म्हाईंबट्टा यांनी नोंदवला आहे. हे ग्रंथ महानुभाव पंथाचे प्रमुख ग्रंथांपैकी एक आहे.
+        </Text>
+
+        <Text style={styles.heading}>श्री चक्रधर स्वामींचे महत्त्व</Text>
+        <Text style={styles.text}>
+          त्यांनी समाजात समता आणि न्यायाचा संदेश पसरवला. त्यांच्या शिकवणीमुळे अनेक लोक आध्यात्मिक जीवनाकडे वळले. महानुभाव पंथाने मराठी साहित्य आणि संस्कृतीला मोठे योगदान दिले.
+        </Text>
+
+        <Text style={styles.text}>
+          श्री चक्रधर स्वामींचे जीवन आणि शिकवणी हे आजही अनेक लोकांसाठी प्रेरणादायी आहे. त्यांच्या शिकवणींचा अभ्यास करून आपण आपल्या जीवनात सत्य, प्रेम, आणि समतेचा मार्ग अवलंबू शकतो.
+        </Text>
+      </ScrollView>
+    </ImageBackground>
+  );
+};
+
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50, // Adjust as per your design
+    left: 20,
+    zIndex: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+    borderRadius: 20,
+    padding: 8,
+  },
+  container: {
+    padding: 20,
+    paddingTop: 80, // Adjusted for back button spacing
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent overlay for better readability
+    borderRadius: 10,
+    margin: 10,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#FFD700', // Gold color
+    textShadowColor: '#000', // Black shadow for contrast
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
+    fontFamily: 'serif',
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 10,
+    color: '#FFA500', // Orange color
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+    fontFamily: 'serif',
+  },
+  text: {
+    fontSize: 18,
+    marginBottom: 25,
+    lineHeight: 26,
+    color: '#FFF',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+    fontFamily: 'serif',
+  },
+});
+
+export default SwamiInfoPage;
