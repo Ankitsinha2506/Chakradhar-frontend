@@ -10,7 +10,7 @@ import {
   Animated,
   Easing,
 } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import TempleMap from "../Components/TempleMap";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const TempleMapInfo = ({ route }) => {
@@ -44,6 +44,7 @@ const TempleMapInfo = ({ route }) => {
     const url = Platform.select({
       ios: `maps://app?daddr=${temple.latitude},${temple.longitude}`,
       android: `https://www.google.com/maps/dir/?api=1&destination=${temple.latitude},${temple.longitude}`,
+      default: `https://www.google.com/maps/dir/?api=1&destination=${temple.latitude},${temple.longitude}`,
     });
     Linking.openURL(url).catch((err) =>
       console.error("Error opening map", err)
@@ -90,24 +91,7 @@ const TempleMapInfo = ({ route }) => {
           onPressOut={animateMapPressOut}
         >
           <View style={styles.mapContainer}>
-            <MapView
-              style={StyleSheet.absoluteFill}
-              initialRegion={{
-                latitude: temple.latitude,
-                longitude: temple.longitude,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-              }}
-            >
-              <Marker
-                coordinate={{
-                  latitude: temple.latitude,
-                  longitude: temple.longitude,
-                }}
-                title={temple.name}
-                description={temple.significance}
-              />
-            </MapView>
+            <TempleMap temple={temple} />
           </View>
         </TouchableOpacity>
 
@@ -157,10 +141,13 @@ export default TempleMapInfo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF8E7",
+    backgroundColor: "#FAF7F2",
   },
 
   content: {
+    width: "100%",
+    maxWidth: 1000,
+    alignSelf: "center",
     paddingBottom: 40,
     paddingHorizontal: 16,
   },

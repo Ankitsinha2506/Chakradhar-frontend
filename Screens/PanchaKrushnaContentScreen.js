@@ -102,8 +102,11 @@ const PanchaKrushnaContentScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    maxWidth: 800,
+    alignSelf: "center",
     padding: 15,
-    backgroundColor: "#F7E2C5", // Light golden background for serenity
+    backgroundColor: "#FAF7F2", // Light golden background for serenity
   },
   centered: {
     flex: 1,

@@ -85,6 +85,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   container: {
+    width: "100%",
+    maxWidth: 800,
+    alignSelf: "center",
     flexGrow: 1,
     padding: 20,
     backgroundColor: '#fff',

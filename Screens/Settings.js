@@ -90,7 +90,7 @@ const SettingsScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 32, width: "100%", maxWidth: 760, alignSelf: "center" }}>
         
         {/* Header Profile */}
         <View style={styles.profileCard}>
@@ -170,7 +170,7 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF4E1",
+    backgroundColor: "#FAF7F2",
   },
 
   /* Profile Header */

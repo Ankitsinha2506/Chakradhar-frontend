@@ -1,117 +1,35 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  FlatList,
-  Text,
-  StyleSheet,
-  Dimensions,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
-import axiosInstance from "../apis/axiosInstance";
+import React from 'react';
+import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import { colors, useLayout } from '../ui/theme';
+import { InteractiveCard } from '../ui/Motion';
+import FramedImage from '../ui/FramedImage';
 
-const { width } = Dimensions.get("window");
-
-const images = [
-  require("../assets/chakraimages.jpeg"),
-  require("../assets/chakradhar2.jpg"),
-  require("../assets/krushna007.jpg"),
-  require("../assets/om12.jpg"),
-  require("../assets/artiriver.jpg"),
-  require("../assets/krushna1.jpg"),
+// These destinations are registered in AppDrawer and are available offline.
+const items = [
+  ['पारायण', 'Sacred readings', require('../assets/chakraimages.jpeg')],
+  ['देवपूजा', 'Daily worship', require('../assets/chakradhar2.jpg')],
+  ['पंचकृष्ण', 'The five incarnations', require('../assets/krushna007.jpg')],
+  ['भजनसंग्रह', 'Songs of devotion', require('../assets/om12.jpg')],
+  ['आरती संग्राह', 'Prayers & aarti', require('../assets/artiriver.jpg')],
+  ['श्रीमद्भगवतगीता', 'Timeless wisdom', require('../assets/krushna1.jpg')],
 ];
-
-const MantraList = () => {
+export default function MantraList() {
   const navigation = useNavigation();
-  const [mainTitles, setMainTitles] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const handlePress = (name) => {
-    navigation.navigate(name);
-  };
-
-  useEffect(() => {
-    const fetchMainTitles = async () => {
-      try {
-        const response = await axiosInstance.get("/users/mainTitle");
-        setMainTitles(response.data);
-      } catch (error) {
-        console.log("Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMainTitles();
-  }, []);
-
-  if (loading) return <Text>Loading...</Text>;
-
-  const renderItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => handlePress(item)} style={styles.card}>
-      <ImageBackground
-        source={images[index % images.length]}
-        style={styles.cardBackground}
-        imageStyle={{ borderRadius: 15 }}
-      >
-        <LinearGradient
-          colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.2)"]}
-          style={styles.overlay}
-        >
-          <Text style={styles.cardText}>{item}</Text>
-        </LinearGradient>
-      </ImageBackground>
-    </TouchableOpacity>
-  );
-
-  return (
-    <FlatList
-      data={mainTitles}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      numColumns={2}
-      contentContainerStyle={styles.gridContainer}
-      scrollEnabled={false}
-    />
-  );
-};
-
-export default MantraList;
-
-const styles = StyleSheet.create({
-  gridContainer: {
-    paddingBottom: 20,
-    justifyContent: "center",
-  },
-
-  card: {
-    width: (width - 100) / 2,
-    aspectRatio: 1.2,
-    margin: 10,
-    borderRadius: 15,
-    overflow: "hidden",
-    elevation: 10,
-  },
-
-  cardBackground: {
-    flex: 1,
-    justifyContent: "flex-end",
-    padding: 15,
-  },
-
-  overlay: {
-    borderRadius: 15,
-    padding: 10,
-    alignItems: "center",
-  },
-
-  cardText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "700",
-    textAlign: "center",
-  },
+  const { cardWidth } = useLayout();
+  const { fontScale } = useWindowDimensions();
+  const imageHeight = Math.round(Math.max(150, Math.min(210, cardWidth * 0.7)));
+  const detailsHeight = Math.ceil(108 * Math.max(1, fontScale));
+  return <View style={s.grid}>{items.map(([route, description, image]) => <InteractiveCard key={route} accessibilityLabel={route} onPress={() => navigation.navigate(route)} style={[s.card, { width: cardWidth, height: imageHeight + detailsHeight + 2 }]}>
+    <FramedImage source={image} height={imageHeight} />
+    <View style={[s.details, { height: detailsHeight }]}><View style={{ flex: 1, minWidth: 0 }}><Text numberOfLines={2} style={s.title}>{route}</Text><Text numberOfLines={1} style={s.description}>{description}</Text></View><Ionicons name="arrow-forward" size={18} color={colors.primary} /></View>
+  </InteractiveCard>)}</View>;
+}
+const s = StyleSheet.create({
+  grid: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start', gap: 16 },
+  card: { backgroundColor: colors.surface, borderRadius: 18, overflow: 'hidden', borderWidth: 1, borderColor: colors.border },
+  details: { flexDirection: 'row', alignItems: 'center', flexShrink: 0, padding: 14, gap: 8 },
+  title: { fontSize: 18, fontWeight: '700', color: colors.ink, marginBottom: 5 },
+  description: { color: colors.muted, fontSize: 12, lineHeight: 20 },
 });

@@ -256,7 +256,7 @@ const BhagavatGeetaScreen = () => {
 export default BhagavatGeetaScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F7E2C5" },
+  container: { flex: 1, width: "100%", maxWidth: 1000, alignSelf: "center", backgroundColor: "#FAF7F2" },
 
   center: { flex: 1, justifyContent: "center", alignItems: "center" },
 

@@ -1,10 +1,12 @@
+import MediaTabs from "../ui/MediaTabs";
+import LibraryCard from "../ui/LibraryCard";
+import ResponsiveGrid from "../ui/ResponsiveGrid";
 import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   FlatList,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
@@ -21,7 +23,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
-const { width } = Dimensions.get("window");
+
 
 const imageSources = [
   require("../assets/datta45.jpg"),
@@ -165,13 +167,7 @@ const ParayanScreen = () => {
 
   // RENDER: TEXT CARD
   const renderTextItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("ParayanSubInfoScreen", { infoTitle: item })} style={styles.card}>
-      <ImageBackground source={imageSources[index % imageSources.length]} style={styles.cardBackground} imageStyle={{ borderRadius: 18 }}>
-        <LinearGradient colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.3)"]} style={styles.overlay}>
-          <Text style={styles.cardText}>{item}</Text>
-        </LinearGradient>
-      </ImageBackground>
-    </TouchableOpacity>
+    <LibraryCard title={item} image={imageSources[index % imageSources.length]} onPress={() => navigation.navigate("ParayanSubInfoScreen", { infoTitle: item })} />
   );
 
   // RENDER: AUDIO PLAYER
@@ -226,25 +222,15 @@ const ParayanScreen = () => {
     </View>
   );
 
-  if (loading) return <ActivityIndicator style={{ marginTop: 50 }} size="large" color="#FFD700" />;
+  if (loading) return <ActivityIndicator style={{ marginTop: 50 }} size="large" color="#A44826" />;
 
   return (
     <View style={styles.container}>
       {/* TABS */}
-      <View style={styles.tabContainer}>
-        {["TEXT", "AUDIO", "VIDEO"].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            style={[styles.tabButton, selectedTab === tab && styles.tabButtonActive]}
-            onPress={() => setSelectedTab(tab)}
-          >
-            <Text style={[styles.tabText, selectedTab === tab && styles.tabTextActive]}>{tab}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <MediaTabs selected={selectedTab} onChange={setSelectedTab} />
 
       {selectedTab === "TEXT" && (
-        <FlatList data={infoTitles} renderItem={renderTextItem} keyExtractor={(i, x) => x.toString()} numColumns={2} contentContainerStyle={styles.listContainer} />
+        <ResponsiveGrid data={infoTitles} renderItem={renderTextItem} keyExtractor={(i, x) => x.toString()}  contentContainerStyle={styles.listContainer} />
       )}
 
       {selectedTab === "AUDIO" && (
@@ -265,7 +251,7 @@ export default ParayanScreen;
 //
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F7E2C5" },
+  container: { flex: 1, backgroundColor: "#FAF7F2" },
 
   tabContainer: {
     flexDirection: "row",
@@ -279,22 +265,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#e6d2a2",
     borderRadius: 20,
   },
-  tabButtonActive: { backgroundColor: "#FFD700", elevation: 5 },
+  tabButtonActive: { backgroundColor: "#A44826", elevation: 5 },
 
   tabText: { fontSize: 16, fontWeight: "700", color: "#5A3E00" },
   tabTextActive: { color: "#fff" },
 
-  listContainer: { paddingBottom: 60 },
+  listContainer: { paddingBottom: 32, width: "100%", maxWidth: 1200, alignSelf: "center" },
 
   card: {
-    width: (width - 60) / 2,
+    alignSelf: "stretch",
     aspectRatio: 1.2,
     margin: 10,
     borderRadius: 18,
     overflow: "hidden",
-    borderWidth: 3,
-    borderColor: "#FFD700",
-    elevation: 10,
+    borderWidth: 1,
+    borderColor: "#A44826",
+    elevation: 2,
   },
   cardBackground: { flex: 1, justifyContent: "flex-end", padding: 15 },
   overlay: { padding: 10, borderRadius: 18 },

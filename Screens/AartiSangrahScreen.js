@@ -1,10 +1,12 @@
+import MediaTabs from "../ui/MediaTabs";
+import LibraryCard from "../ui/LibraryCard";
+import ResponsiveGrid from "../ui/ResponsiveGrid";
 import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   FlatList,
   Text,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
   ImageBackground,
   ActivityIndicator,
@@ -16,7 +18,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import { Audio } from "expo-av";
 import { Ionicons } from "@expo/vector-icons";
 
-const { width } = Dimensions.get("window");
+
 
 const imageSources = [
   require("../assets/palna1.jpg"),
@@ -132,20 +134,7 @@ const AartiSangrahScreen = () => {
   };
 
   const renderTextItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => handlePress(item)} style={styles.card}>
-      <ImageBackground
-        source={imageSources[index % imageSources.length]}
-        style={styles.cardBackground}
-        imageStyle={{ borderRadius: 15 }}
-      >
-        <LinearGradient
-          colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.2)"]}
-          style={styles.overlay}
-        >
-          <Text style={styles.cardText}>{item || "No Title"}</Text>
-        </LinearGradient>
-      </ImageBackground>
-    </TouchableOpacity>
+    <LibraryCard title={item} image={imageSources[index % imageSources.length]} onPress={() => handlePress(item)} />
   );
 
   const renderAudioItem = ({ item, index }) => (
@@ -179,31 +168,16 @@ const AartiSangrahScreen = () => {
 
   return (
     <View style={styles.container}>
-      
+
       {/* TABS */}
-      <View style={styles.tabContainer}>
-        {["TEXT", "AUDIO", "VIDEO"].map((tab) => {
-          const active = selectedTab === tab;
-          return (
-            <TouchableOpacity
-              key={tab}
-              style={[styles.tabButton, active && styles.activeTabButton]}
-              onPress={() => setSelectedTab(tab)}
-            >
-              <Text style={[styles.tabText, active && styles.activeTabText]}>
-                {tab}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+      <MediaTabs selected={selectedTab} onChange={setSelectedTab} />
 
       {/* TEXT GRID */}
       {selectedTab === "TEXT" && (
-        <FlatList
+        <ResponsiveGrid
           data={infoTitles}
           renderItem={renderTextItem}
-          numColumns={2}
+
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={styles.listContainer}
         />
@@ -235,7 +209,7 @@ const AartiSangrahScreen = () => {
 export default AartiSangrahScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#F7E2C5" },
+  container: { flex: 1, backgroundColor: "#FAF7F2" },
   listContainer: { padding: 10 },
 
   tabContainer: {
@@ -258,14 +232,14 @@ const styles = StyleSheet.create({
 
   // TEXT CARDS
   card: {
-    width: (width - 60) / 2,
+    alignSelf: "stretch",
     aspectRatio: 1.1,
     margin: 10,
     borderRadius: 15,
     overflow: "hidden",
     elevation: 8,
-    borderWidth: 3,
-    borderColor: "#FFD700",
+    borderWidth: 1,
+    borderColor: "#A44826",
   },
   cardBackground: { flex: 1, justifyContent: "flex-end", padding: 15 },
   overlay: { padding: 10, alignItems: "center" },
@@ -280,12 +254,12 @@ const styles = StyleSheet.create({
   padding: 15,
   marginVertical: 10,
   borderRadius: 30,
-  borderWidth: 3,
-  borderColor: "#FFD700",   // Golden border like TEXT CARD
+  borderWidth: 1,
+  borderColor: "#A44826",   // Golden border like TEXT CARD
   elevation: 8,
   shadowColor: "#000",
   shadowOffset: { width: 0, height: 3 },
-  shadowOpacity: 0.3,
+  shadowOpacity: 0.08,
   shadowRadius: 6,
 },
 

@@ -139,6 +139,9 @@ const VideoScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    maxWidth: 1000,
+    alignSelf: "center",
     flex: 1,
     backgroundColor: "#fff5e6", // Warm, soft cream for spiritual vibe
     paddingHorizontal: 15,

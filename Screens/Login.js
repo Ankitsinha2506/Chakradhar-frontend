@@ -103,7 +103,7 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F7E2C5" />
-      <ScrollView style={styles.scrollView}>
+      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollView}>
         
         <Image
           style={styles.logo}
@@ -187,21 +187,6 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
           </View>
         </View>
 
-        <View style={styles.socialIcons}>
-          <TouchableOpacity style={styles.socialIconButton}>
-            {/* <Image
-              source={require("../assets/googleicon.webp")}
-              style={styles.socialIcon}
-            /> */}
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialIconButton}>
-            {/* <FontAwesome5 name="facebook" size={24} color="#4267B2" /> */}
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialIconButton}>
-            {/* <FontAwesome5 name="phone" size={24} color="#F57C00" /> */}
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.termsContainer}>
           <Text style={styles.termsText}>By continuing, you agree to our</Text>
           <View style={styles.termsLinks}>
@@ -232,11 +217,15 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFE5B4", // Light orange background
+    backgroundColor: "#FAF7F2", // Light orange background
   },
   scrollView: {
-    flex: 1,
-    paddingTop: 50,
+    flexGrow: 1,
+    width: "100%",
+    maxWidth: 520,
+    alignSelf: "center",
+    paddingBottom: 32,
+    paddingTop: 32,
     paddingHorizontal: 24,
   },
   logo: {
@@ -245,7 +234,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     borderWidth: 8,
-    borderColor: "#FF7043",
+    borderColor: "#A44826",
     marginBottom: 20,
   },
   formContainer: {
@@ -268,20 +257,20 @@ const styles = StyleSheet.create({
   emailInput: {
     height: 48,
     borderWidth: 1,
-    borderColor: "#FF7043",
+    borderColor: "#A44826",
     borderRadius: 15,
     paddingHorizontal: 12,
     fontSize: 16,
     color: "#4E342E",
-    backgroundColor: "#FFF3E0",
+    backgroundColor: "#FFFFFF",
   },
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#FF7043",
+    borderColor: "#A44826",
     borderRadius: 15,
-    backgroundColor: "#FFF3E0",
+    backgroundColor: "#FFFFFF",
   },
   passwordInput: {
     flex: 1,
@@ -309,7 +298,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     height: 50,
-    backgroundColor: "#FF7043",
+    backgroundColor: "#A44826",
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -328,6 +317,7 @@ const styles = StyleSheet.create({
   },
   signUpContainer: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
     marginTop: 20,
   },
@@ -342,6 +332,7 @@ const styles = StyleSheet.create({
   },
   socialIcons: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
     marginTop: 30,
     gap: 10,
@@ -373,6 +364,7 @@ const styles = StyleSheet.create({
   },
   termsLinks: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 4,

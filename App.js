@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Header from './Navigations/Header';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { StyleSheet, TouchableOpacity, Text, View, Image } from "react-native";
 import {
@@ -86,30 +89,7 @@ import ChakradharSwamiScreen from './Screens/ChakradharSwamiMaharajScreen'
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const CustomHeader = ({ title }) => {
-  const navigation = useNavigation();
-
-  return (
-    <View style={styles.headerContainer}>
-      {/* Back Button */}
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.backButton}
-      >
-        <Ionicons name="arrow-back" size={28} color="white" />
-      </TouchableOpacity>
-
-      {/* Header Title */}
-      <Text style={styles.headerTitle}>{title}</Text>
-
-      {/* Divine Icon (Can be replaced with a logo) */}
-      <Image
-        source={require("./assets/shri chakardhar swami logopurple.jpg")} // Replace with your icon
-        style={styles.icon}
-      />
-    </View>
-  );
-};
+const CustomHeader = ({ title }) => <Header title={title} back />;
 
 function AuthStack({ setIsLoggedIn, setIsAdmin }) {
   return (
@@ -136,21 +116,17 @@ function AuthStack({ setIsLoggedIn, setIsAdmin }) {
   );
 }
 
-const CustomDrawerContent = ({ navigation }) => {
+const CustomDrawerContent = (props) => {
+  const { navigation } = props;
   return (
-    <LinearGradient
-      colors={["#C55A11", "#E9962F"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.drawerContainer}
-    >
+    <DrawerContentScrollView {...props} style={{ backgroundColor: "#422C23" }} contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 24 }}>
       {/* Drawer Header */}
       <View style={styles.drawerHeader}>
         <Image
           source={require("./assets/chimage.png")} // Replace with your logo
           style={styles.Mainlogo}
         />
-        <Text style={styles.drawerTitle}>श्री जगन्नाथ</Text>
+        <Text style={styles.drawerTitle}>श्री चक्रधर स्वामी</Text>
       </View>
 
       {/* Drawer Items */}
@@ -194,7 +170,7 @@ const CustomDrawerContent = ({ navigation }) => {
 
       <TouchableOpacity
         style={styles.drawerItem}
-        onPress={() => navigation.navigate("")}
+        onPress={() => navigation.navigate("पंचकृष्ण")}
       >
         <Image
           source={require("./assets/krushna07.jpg")} // Replace with your logo
@@ -257,7 +233,7 @@ const CustomDrawerContent = ({ navigation }) => {
         />
         <Text style={styles.drawerItemText}>पंचावतार</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </DrawerContentScrollView>
   );
 };
 
@@ -397,7 +373,7 @@ export default function App() {
   }, [isLoggedIn, isAdmin]);
 
   return (
-    <NavigationContainer>
+    <SafeAreaProvider><NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -635,7 +611,7 @@ export default function App() {
         <Stack.Screen name="PhoneAuthScreen" component={PhoneAuthScreen} />
         <Stack.Screen name="SwamiInfoPage" component={SwamiInfoPage} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer></SafeAreaProvider>
   );
 }
 
@@ -701,13 +677,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   Mainlogo: {
-    width: 85,
-    height: 85,
+    width: 56,
+    height: 56,
     borderRadius: 45,
     marginRight: 14,
   },
   drawerTitle: {
-    fontSize: 24,
+    fontSize: 18,
+    flexShrink: 1,
     fontWeight: "700",
     color: "#FFFFFF",
     fontFamily: "Merriweather", // Use a custom font if available

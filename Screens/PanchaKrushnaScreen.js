@@ -1,10 +1,11 @@
+import LibraryCard from "../ui/LibraryCard";
+import ResponsiveGrid from "../ui/ResponsiveGrid";
 import React, { useEffect, useState } from "react";
 import {
   View,
   FlatList,
   Text,
   StyleSheet,
-  Dimensions,
   ScrollView,
   TouchableOpacity,
   ImageBackground,
@@ -13,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import axiosInstance from "../apis/axiosInstance"; // Import the axios instance
 
-const { width } = Dimensions.get("window");
+
 
 const images = [
   require("../assets/krushna007.jpg"),
@@ -62,33 +63,19 @@ const PanchaKrushnaScreen = () => {
   }
 
   const renderItem = ({ item, index }) => (
-    <TouchableOpacity onPress={() => handlePress(item)} style={styles.card}>
-      <ImageBackground
-        source={images[index % images.length]}// Sacred background image
-        style={styles.cardBackground}
-        imageStyle={{ borderRadius: 15 }}
-      >
-        <LinearGradient
-          colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.2)"]}
-          style={styles.overlay}
-        >
-          <Text style={styles.cardText}>{item || "No Title"}</Text>
-        </LinearGradient>
-      </ImageBackground>
-    </TouchableOpacity>
+    <LibraryCard title={item} image={imageSources[index % imageSources.length]} onPress={() => handlePress(item)} />
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <FlatList
+    <View style={{ flex: 1, backgroundColor: "#FAF7F2", padding: 8 }}>
+      <ResponsiveGrid
         data={infoTitles}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        scrollEnabled={false}
-        contentContainerStyle={styles.gridContainer}
+
+        contentContainerStyle={{ paddingBottom: 24 }}
       />
-    </ScrollView>
+    </View>
   );
 };
 
@@ -96,25 +83,25 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     padding: 10,
-    backgroundColor: "#F7E2C5",
+    backgroundColor: "#FAF7F2",
   },
   gridContainer: {
     justifyContent: "space-between",
     alignItems: "center",
   },
   card: {
-    width: (width - 60) / 2,
+    alignSelf: "stretch",
     aspectRatio: 1.2,
     margin: 10,
     borderRadius: 15,
     overflow: "hidden",
-    elevation: 10,
+    elevation: 2,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.08,
     shadowRadius: 6,
-    borderWidth: 3,
-    borderColor: "#FFD700", // Golden color
+    borderWidth: 1,
+    borderColor: "#A44826", // Golden color
   },
   cardBackground: {
     flex: 1,

@@ -42,7 +42,7 @@ const ForgetPasswordScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F7E2C5" />
+      <StatusBar barStyle="dark-content" backgroundColor="#FAF7F2" />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={styles.flex}
@@ -84,16 +84,19 @@ const ForgetPasswordScreen = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#F7E2C5",
+    backgroundColor: "#FAF7F2",
   },
   flex: {
     flex: 1,
   },
   container: {
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center",
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 60,
-    backgroundColor: "#F7E2C5",
+    backgroundColor: "#FAF7F2",
   },
   backButton: {
     position: "absolute",

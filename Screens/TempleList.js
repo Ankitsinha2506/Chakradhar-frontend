@@ -1,3 +1,6 @@
+import FramedImage from "../ui/FramedImage";
+import { colors, useLayout } from "../ui/theme";
+import { InteractiveCard } from "../ui/Motion";
 import React, { useRef } from "react";
 import {
   ScrollView,
@@ -195,155 +198,18 @@ const templeData = [
 
 const TempleListScreen = () => {
   const navigation = useNavigation();
-
-  return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {templeData.map((temple, index) => (
-        <PremiumTempleCard
-          key={index}
-          temple={temple}
-          onPress={() => navigation.navigate("TempleMapInfo", { temple })}
-        />
-      ))}
-    </ScrollView>
-  );
+  const { cardWidth, padding } = useLayout();
+  return <ScrollView style={{ flex: 1, backgroundColor: colors.background }} contentContainerStyle={{ width: '100%', maxWidth: 1200, alignSelf: 'center', paddingHorizontal: padding, paddingVertical: 24 }}>
+    <Text style={{ fontSize: 28, fontWeight: '700', color: colors.ink, marginBottom: 8 }}>पवित्र स्थळे</Text>
+    <Text style={{ color: colors.muted, lineHeight: 24, marginBottom: 24 }}>Explore temples and plan your next visit.</Text>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 16 }}>
+      {templeData.map(temple => <InteractiveCard key={temple.name} accessibilityLabel={temple.name} onPress={() => navigation.navigate('TempleMapInfo', { temple })} style={[styles.card, { width: cardWidth }]}>
+        <FramedImage source={{ uri: temple.image }} height={190} />
+        <View style={styles.textContainer}><Text numberOfLines={2} style={styles.name}>{temple.name}</Text><Text numberOfLines={2} style={styles.location}>{temple.location}</Text><Text style={styles.significance} numberOfLines={3}>{temple.significance}</Text></View>
+      </InteractiveCard>)}
+    </View>
+  </ScrollView>;
 };
-
-/* -----------------------------------------------------------------
-    🔥 PREMIUM TEMPLE CARD WITH:
-       - 3D Tilt Parallax
-       - Press Depth Shadow
-       - Gold Glow
-       - Smooth Scale
--------------------------------------------------------------------*/
-
-const PremiumTempleCard = ({ temple, onPress }) => {
-  const scale = useRef(new Animated.Value(1)).current;
-  const rotateX = useRef(new Animated.Value(0)).current;
-  const rotateY = useRef(new Animated.Value(0)).current;
-
-  const glow = useRef(new Animated.Value(0)).current;
-
-  // Tilt Interpolation
-  const tiltX = rotateX.interpolate({
-    inputRange: [-20, 20],
-    outputRange: ["15deg", "-15deg"],
-  });
-
-  const tiltY = rotateY.interpolate({
-    inputRange: [-20, 20],
-    outputRange: ["-15deg", "15deg"],
-  });
-
-  // GOLD GLOW interpolation (opacity only — allowed on native driver)
-  const glowOpacity = glow.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 0.8],
-  });
-
-  // PanResponder for tilt
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-
-      onPanResponderMove: (_, gesture) => {
-        rotateX.setValue(gesture.dy / 5);
-        rotateY.setValue(gesture.dx / 5);
-      },
-
-      onPanResponderRelease: () => {
-        Animated.parallel([
-          Animated.spring(rotateX, {
-            toValue: 0,
-            useNativeDriver: true,
-          }),
-          Animated.spring(rotateY, {
-            toValue: 0,
-            useNativeDriver: true,
-          }),
-        ]).start();
-      },
-    })
-  ).current;
-
-  // Press In
-  const animatePressIn = () => {
-    Animated.parallel([
-      Animated.spring(scale, {
-        toValue: 0.95,
-        friction: 6,
-        useNativeDriver: true,
-      }),
-      Animated.timing(glow, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  // Press Out
-  const animatePressOut = () => {
-    Animated.parallel([
-      Animated.spring(scale, {
-        toValue: 1,
-        friction: 4,
-        useNativeDriver: true,
-      }),
-      Animated.timing(glow, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  return (
-    <Pressable
-      onPress={onPress}
-      onPressIn={animatePressIn}
-      onPressOut={animatePressOut}
-      style={{ marginBottom: 25 }}
-    >
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={[
-          styles.card,
-          {
-            transform: [
-              { scale },
-              { rotateX: tiltX },
-              { rotateY: tiltY },
-            ],
-          },
-        ]}
-      >
-        {/* Outer GLOW Layer */}
-        <Animated.View
-          style={[
-            styles.glowLayer,
-            { opacity: glowOpacity },
-          ]}
-        />
-
-        <Image source={{ uri: temple.image }} style={styles.image} />
-
-        <View style={styles.textContainer}>
-          <Text style={styles.name}>{temple.name}</Text>
-          <Text style={styles.location}>{temple.location}</Text>
-          <Text style={styles.significance} numberOfLines={3}>
-            {temple.significance}
-          </Text>
-        </View>
-      </Animated.View>
-    </Pressable>
-  );
-};
-
-
-/* -----------------------------------------------------------------
-                     ⭐ LEVEL-2 PREMIUM STYLES
--------------------------------------------------------------------*/
 
 const styles = StyleSheet.create({
   container: {
@@ -353,16 +219,16 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#fffbed",
+    backgroundColor: "#FFFFFF",
 
     borderRadius: 20,
-    borderWidth: 3,
-    borderColor: "#FFD700",
+    borderWidth: 1,
+    borderColor: "#E9E0D5",
 
     overflow: "hidden",
-    elevation: 10,
+    elevation: 1,
 
-    shadowColor: "#FFD700",
+    shadowColor: "#E9E0D5",
     shadowOffset: { width: 0, height: 10 },
   },
 
@@ -380,7 +246,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     color: "#5A3E00",
     marginBottom: 6,
-    textShadowColor: "#FFD700",
+    textShadowColor: "#E9E0D5",
     textShadowOffset: { width: 0.5, height: 0.5 },
     textShadowRadius: 3,
   },
@@ -401,7 +267,7 @@ const styles = StyleSheet.create({
   ...StyleSheet.absoluteFillObject,
   borderRadius: 20,
   borderWidth: 4,
-  borderColor: "#FFD700",
+  borderColor: "#E9E0D5",
   opacity: 0,
 },
 

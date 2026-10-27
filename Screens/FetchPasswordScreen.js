@@ -77,6 +77,9 @@ const FetchPasswordScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center",
     flex: 1,
     justifyContent: "center",
     padding: 20,

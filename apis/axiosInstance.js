@@ -1,10 +1,21 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 
-console.log("🌍 Using API:", process.env.EXPO_PUBLIC_API_BASE_URL);
+// An explicit URL also supports testing the deployed API from localhost.
+// Android's emulator reaches the development computer through 10.0.2.2.
+const localHost = Platform.OS === "android" ? "10.0.2.2" : "localhost";
+const baseURL = (
+  process.env.EXPO_PUBLIC_API_BASE_URL ||
+  (__DEV__
+    ? `http://${localHost}:5001/api`
+    : "https://chakradhar-backend.onrender.com/api")
+).replace(/\/+$/, "");
+
+console.log("🌍 Using API:", baseURL);
 
 const axiosInstance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,
+  baseURL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

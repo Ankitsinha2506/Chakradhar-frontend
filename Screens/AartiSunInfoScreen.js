@@ -160,8 +160,11 @@ const AartiSunInfoScreen = ({ route }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
+    width: "100%",
+    maxWidth: 900,
+    alignSelf: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#F7E2C5", // Divine Saffron
+    backgroundColor: "#FAF7F2", // Divine Saffron
   },
   marathiHeading: {
     fontSize: 32,
@@ -170,7 +173,7 @@ const styles = StyleSheet.create({
     color: "#5C3D2E", // Dark Brown for contrast
     textAlign: "center",
     marginVertical: 20,
-    textShadowColor: "#FFD700", // Golden glow effect
+    textShadowColor: "#E9E0D5", // Golden glow effect
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
   },
@@ -183,8 +186,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 6,
     borderWidth: 2,
-    borderColor: "#FFD700", // Golden border for divine feel
-    shadowColor: "#FFD700", // Subtle glow effect
+    borderColor: "#E9E0D5", // Golden border for divine feel
+    shadowColor: "#E9E0D5", // Subtle glow effect
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 15,
     paddingHorizontal: 20,
-    backgroundColor: "#E9962F",
+    backgroundColor: "#A44826",
     borderRadius: 15,
   },
   gradientBackground: {
@@ -206,9 +209,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 15,
     width: "100%",
-    backgroundColor: "#E9962F", // Vibrant Saffron Shade
+    backgroundColor: "#A44826", // Vibrant Saffron Shade
     borderWidth: 2,
-    borderColor: "#FFD700", // Divine Golden Touch
+    borderColor: "#E9E0D5", // Divine Golden Touch
   },
   itemTitle: {
     color: "#fff",

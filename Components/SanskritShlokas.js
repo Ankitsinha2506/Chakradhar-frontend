@@ -37,18 +37,21 @@ export default SanskritShlokas;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: "#FFF5E1",
+    padding: 22,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "#E9E0D5",
+    backgroundColor: "#F3E9DA",
     borderRadius: 12,
-    elevation: 3,
+    elevation: 0,
     marginBottom: 20,
   },
 
   shlokaText: {
     fontFamily: "TiroDevanagariMarathi",
-    fontSize: 20,
+    fontSize: 17,
     color: "#8B4513",
     textAlign: "center",
-    lineHeight: 34,
+    lineHeight: 30,
   },
 });

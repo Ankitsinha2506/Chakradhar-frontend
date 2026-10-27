@@ -68,7 +68,7 @@ const SignUp = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F7E2C5" />
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollView}>
         <View style={styles.header}>
           <Image
             style={styles.logo}
@@ -160,23 +160,6 @@ const SignUp = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.socialLoginContainer}>
-            {/* <Text style={styles.socialLoginText}>or continue with</Text> */}
-            <View style={styles.socialButtons}>
-              <TouchableOpacity style={styles.socialButton}>
-                <Image
-                  source={require('../assets/googleicon.webp')}
-                  style={styles.socialIcon}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <FontAwesome5 name="facebook" size={30} color="#4267B2" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.socialButton}>
-                <FontAwesome5 name="twitter" size={30} color="#1DA1F2" />
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
 
         <View style={styles.termsContainer}>
@@ -205,10 +188,13 @@ const SignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFE5B4", // Light orange background
+    backgroundColor: "#FAF7F2", // Light orange background
   },
   scrollView: {
     flexGrow: 1,
+    width: "100%",
+    maxWidth: 520,
+    alignSelf: "center",
     paddingVertical: 20,
     paddingHorizontal: 24,
   },
@@ -221,7 +207,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 70,
     borderWidth: 8,
-    borderColor: '#FF7043',
+    borderColor: '#A44826',
     marginBottom: 16,
   },
   title: {
@@ -246,20 +232,20 @@ const styles = StyleSheet.create({
   input: {
     height: 48,
     borderWidth: 1,
-    borderColor: "#FF7043",
+    borderColor: "#A44826",
     borderRadius: 15,
     paddingHorizontal: 12,
     fontSize: 16,
     color: "#4E342E",
-    backgroundColor: "#FFF3E0",
+    backgroundColor: "#FFFFFF",
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#FF7043',
+    borderColor: '#A44826',
     borderRadius: 15,
-    backgroundColor: "#FFF3E0",
+    backgroundColor: "#FFFFFF",
   },
   passwordInput: {
     flex: 1,
@@ -274,7 +260,7 @@ const styles = StyleSheet.create({
   signupButton: {
     marginTop: 18,
     height: 50,
-    backgroundColor: '#FF7043',
+    backgroundColor: '#A44826',
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
@@ -294,6 +280,7 @@ const styles = StyleSheet.create({
   },
   loginPromptBelow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 24,

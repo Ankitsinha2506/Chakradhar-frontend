@@ -785,6 +785,9 @@ const DinDarshikaScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    maxWidth: 900,
+    alignSelf: "center",
     flexGrow: 1,
     padding: 20,
     justifyContent: 'center',

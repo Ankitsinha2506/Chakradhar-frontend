@@ -154,8 +154,11 @@ const DevPujaScreen = () => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
+    width: "100%",
+    maxWidth: 900,
+    alignSelf: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#F7E2C5",
+    backgroundColor: "#FAF7F2",
   },
   listContainer: {
     paddingVertical: 20,
@@ -166,8 +169,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 6,
     borderWidth: 2,
-    borderColor: "#FFD700",
-    shadowColor: "#FFD700",
+    borderColor: "#E9E0D5",
+    shadowColor: "#E9E0D5",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 15,
     paddingHorizontal: 20,
-    backgroundColor: "#E9962F",
+    backgroundColor: "#A44826",
     borderRadius: 15,
   },
   gradientBackground: {
@@ -189,9 +192,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 15,
     width: "100%",
-    backgroundColor: "#E9962F",
+    backgroundColor: "#A44826",
     borderWidth: 2,
-    borderColor: "#FFD700",
+    borderColor: "#E9E0D5",
   },
   itemTitle: {
     color: "#fff",

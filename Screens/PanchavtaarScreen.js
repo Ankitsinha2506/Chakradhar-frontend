@@ -83,8 +83,11 @@ export default PanchavtaarScreen;
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    maxWidth: 900,
+    alignSelf: "center",
     flex: 1,
-    backgroundColor: '#FFF8F0',
+    backgroundColor: '#FAF7F2',
     paddingHorizontal: 16,
   },
   card: {

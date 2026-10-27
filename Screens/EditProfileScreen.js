@@ -27,7 +27,7 @@ const EditProfileScreen = ({ route }) => {
       headerTitle: "Edit Profile",
       headerTitleAlign: "center",
       headerStyle: {
-        backgroundColor: "#F7E2C5",
+        backgroundColor: "#FAF7F2",
       },
       headerTintColor: "#6A3F6B",
       headerLeft: () => (
@@ -120,9 +120,12 @@ const EditProfileScreen = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center",
     flex: 1,
     padding: 20,
-    backgroundColor: "#F7E2C5",
+    backgroundColor: "#FAF7F2",
     justifyContent: "center",
   },
   label: {
