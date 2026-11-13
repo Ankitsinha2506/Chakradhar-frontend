@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Header from './Navigations/Header';
@@ -91,7 +91,7 @@ const Drawer = createDrawerNavigator();
 
 const CustomHeader = ({ title }) => <Header title={title} back />;
 
-function AuthStack({ setIsLoggedIn, setIsAdmin }) {
+function AuthStack({ onLogin }) {
   return (
     <Stack.Navigator
       initialRouteName="SplashScreen"
@@ -106,8 +106,7 @@ function AuthStack({ setIsLoggedIn, setIsAdmin }) {
         {(props) => (
           <Login
             {...props}
-            setIsLoggedIn={setIsLoggedIn}
-            setIsAdmin={setIsAdmin}
+            onLogin={onLogin}
           />
         )}
       </Stack.Screen>
@@ -352,29 +351,17 @@ function AppDrawer() {
 }
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const navigationRef = useRef(null); // Reference for navigation
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      if (isAdmin) {
-        navigationRef.current?.reset({
-          index: 0,
-          routes: [{ name: "AdminHome" }],
-        });
-      } else {
-        navigationRef.current?.reset({
-          index: 0,
-          routes: [{ name: "HomeDrawer" }],
-        });
-      }
-    }
-  }, [isLoggedIn, isAdmin]);
+  const [session, setSession] = useState(null);
+  const isLoggedIn = session !== null;
+  const onLogin = (destination) => {
+    setSession(previous => ({ destination, version: (previous?.version || 0) + 1 }));
+  };
 
   return (
     <SafeAreaProvider><NavigationContainer>
       <Stack.Navigator
+        key={session ? `signed-in-${session.version}` : "signed-out"}
+        initialRouteName={session?.destination || "Auth"}
         screenOptions={{
           headerShown: false,
         }}
@@ -393,8 +380,7 @@ export default function App() {
             {(props) => (
               <AuthStack
                 {...props}
-                setIsLoggedIn={setIsLoggedIn}
-                setIsAdmin={setIsAdmin}
+                onLogin={onLogin}
               />
             )}
           </Stack.Screen>
@@ -591,8 +577,7 @@ export default function App() {
           {(props) => (
             <Login
               {...props}
-              setIsLoggedIn={setIsLoggedIn}
-              setIsAdmin={setIsAdmin}
+              onLogin={onLogin}
             />
           )}
         </Stack.Screen>

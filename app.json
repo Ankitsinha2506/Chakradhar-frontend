@@ -4,7 +4,7 @@
     "slug": "ChakraDharSwamiApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/app_icon_1024.png",
+    "icon": "./assets/logo/ChakradharLogo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "jsEngine": "hermes",
@@ -16,17 +16,18 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.smartsoftwareservices.chakradharswamiapp",
-      "icon": "./assets/icons/ios_appstore_1024.png"
+      "icon": "./assets/logo/ChakradharLogo.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/adaptive_foreground_512.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/logo/ChakradharLogo.png",
+        "backgroundColor": "#000000"
       },
-      "package": "com.smartsoftwareservices.chakradharswamiapp"
+      "package": "com.smartsoftwareservices.chakradharswamiapp",
+      "icon": "./assets/logo/ChakradharLogo.png"
     },
     "web": {
-      "favicon": "./assets/icons/app_icon_1024.png"
+      "favicon": "./assets/logo/ChakradharLogo.png"
     },
     "plugins": [
       "expo-font",

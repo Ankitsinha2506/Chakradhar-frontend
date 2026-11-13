@@ -18,7 +18,7 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axiosInstance from "../apis/axiosInstance";
 
-const Login = ({ setIsLoggedIn, setIsAdmin }) => {
+const Login = ({ onLogin }) => {
   const [loginCredentials, setLoginCredentials] = useState({
     email: "",
     password: "",
@@ -56,9 +56,7 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
       const data = response.data;
 
       if (response.status === 200) {
-        setLoading(false);
-        setIsLoggedIn(true);
-
+        console.log("Login successful. Backend is responding:", axiosInstance.defaults.baseURL);
         const token = data.token;
         await AsyncStorage.setItem("userToken", token);
         await AsyncStorage.setItem("userEmail", email.trim().toLowerCase());
@@ -69,24 +67,12 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
         const superAdminEmail = "superadmin@gmail.com";
         const adminEmailPattern = /^admin[\w\d]*@gmail\.com$/;
 
-        if (userEmail === superAdminEmail) {
-          setIsAdmin(true);
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "SuperAdminHomeScreen" }],
-          });
-        } else if (adminEmailPattern.test(userEmail)) {
-          setIsAdmin(true);
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "AdminHome" }],
-          });
-        } else {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Home" }],
-          });
-        }
+        const destination = userEmail === superAdminEmail
+          ? "SuperAdminHomeScreen"
+          : adminEmailPattern.test(userEmail) ? "AdminHome" : "Home";
+        // Persist credentials before the root navigator mounts signed-in screens.
+        setLoading(false);
+        onLogin(destination);
       } else {
         setLoading(false);
         Alert.alert("Error", data.message || "Something went wrong.");
@@ -112,6 +98,7 @@ const Login = ({ setIsLoggedIn, setIsAdmin }) => {
         />
         <View style={styles.formContainer}>
           <Text style={styles.title}>Login</Text>
+
 
           <Text style={styles.label}>Email</Text>
           <TextInput

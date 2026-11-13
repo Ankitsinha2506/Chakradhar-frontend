@@ -20,13 +20,14 @@ const BhajanSubInfoScreen = ({ route }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [content, setContent] = useState({});
   const [contentLoading, setContentLoading] = useState(false);
+  const [contentErrors, setContentErrors] = useState({});
 
   // Animated height for dropdown transition
   const animatedHeight = useState(new Animated.Value(0))[0];
   const animatedRotate = useState(new Animated.Value(0))[0]; // For Chevron Rotation
 
-  const handleToggle = async (index, subInfoTitle) => {
-    if (expandedIndex === index) {
+  const handleToggle = async (index, subInfoTitle, retry = false) => {
+    if (expandedIndex === index && !retry) {
       Animated.timing(animatedHeight, {
         toValue: 0,
         duration: 300,
@@ -47,16 +48,19 @@ const BhajanSubInfoScreen = ({ route }) => {
 
     if (!content[subInfoTitle]) {
       setContentLoading(true);
+      setContentErrors(previous => ({ ...previous, [subInfoTitle]: null }));
       try {
         const response = await axiosInstance.get(
-          `/users/get-bhajancontent/${subInfoTitle}`
+          `/users/get-bhajancontent/${encodeURIComponent(subInfoTitle)}`
         );
         setContent((prevContent) => ({
           ...prevContent,
           [subInfoTitle]: response.data.content,
         }));
       } catch (err) {
-        setError("Failed to fetch content. Please try again later.");
+        setContentErrors(previous => ({ ...previous, [subInfoTitle]: err.response?.status === 404
+          ? "या भजनाचा मजकूर उपलब्ध नाही. कृपया प्रशासकाशी संपर्क साधा."
+          : "मजकूर लोड झाला नाही. पुन्हा प्रयत्न करा." }));
       } finally {
         setContentLoading(false);
       }
@@ -79,7 +83,7 @@ const BhajanSubInfoScreen = ({ route }) => {
     const fetchSubInfoTitles = async () => {
       try {
         const response = await axiosInstance.get(
-          `/users/bhajanSubInfoTitle/${infoTitle}`
+          `/users/bhajanSubInfoTitle/${encodeURIComponent(infoTitle)}`
         );
         setSubInfoTitles(response.data);
         setLoading(false);
@@ -141,9 +145,16 @@ const BhajanSubInfoScreen = ({ route }) => {
                   >
                     {contentLoading ? (
                       <ActivityIndicator size="large" color="#ff6347" />
+                    ) : contentErrors[title] ? (
+                      <View>
+                        <Text style={styles.errorText}>{contentErrors[title]}</Text>
+                        <TouchableOpacity accessibilityRole="button" onPress={() => handleToggle(index, title, true)} style={{ padding: 16, alignItems: "center" }}>
+                          <Text style={{ color: "#A44826", fontWeight: "700" }}>पुन्हा प्रयत्न करा</Text>
+                        </TouchableOpacity>
+                      </View>
                     ) : (
                       <Text style={styles.itemText}>
-                        {content[title] || "No content available."}
+                        {Array.isArray(content[title]) ? content[title].join("\n\n") : content[title] || "No content available."}
                       </Text>
                     )}
                   </ScrollView>

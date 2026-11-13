@@ -10,14 +10,16 @@ const BhajanContentScreen = ({ route }) => {
 
   useEffect(() => {
     const fetchContent = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const response = await axiosInstance.get(`/users/get-bhajancontent/${subInfoTitle}`);
+        const response = await axiosInstance.get(`/users/get-bhajancontent/${encodeURIComponent(subInfoTitle)}`);
         console.log("API Response:", response);
         console.log("Response Data:", response.data); // Data is an array of main titles
         setContent(response.data.content); // Assuming the content is under 'content' field
       } catch (err) {
         console.error('Error fetching content:', err);
-        setError('Failed to fetch content. Please try again later.');
+        setError(err.response?.status === 404 ? 'या भजनाचा मजकूर उपलब्ध नाही. कृपया प्रशासकाशी संपर्क साधा.' : 'Failed to fetch content. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -54,7 +56,7 @@ const BhajanContentScreen = ({ route }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>{subInfoTitle}</Text>
-      <Text style={styles.content}>{content}</Text>
+      <Text style={styles.content}>{Array.isArray(content) ? content.join("\n\n") : content}</Text>
     </ScrollView>
   );
 };

@@ -38,10 +38,7 @@ const PanchaKrushnaScreen = () => {
   useEffect(() => {
     const fetchInfoTitles = async () => {
       try {
-        console.log("Making API request...");
         const response = await axiosInstance.get("/users/PanchaKrushnaSubTitle");
-        console.log("API Response:", response);
-        console.log("Response Data:", response.data); // Data is an array of titles
         setInfoTitles(response.data);
         setLoading(false);
       } catch (error) {
@@ -63,7 +60,7 @@ const PanchaKrushnaScreen = () => {
   }
 
   const renderItem = ({ item, index }) => (
-    <LibraryCard title={item} image={imageSources[index % imageSources.length]} onPress={() => handlePress(item)} />
+    <LibraryCard title={item} image={images[index % images.length]} onPress={() => handlePress(item)} />
   );
 
   return (
